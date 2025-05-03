@@ -7,9 +7,10 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-   // allowedHeaders: ['content-type'],
-   origin: 'https://vladimir-kozinsky.github.io/iservice/',
+   allowedHeaders: ['content-type'],
+   origin: 'https://vladimir-kozinsky.github.io/iservice',
    credentials: true,
+   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
   })
   // somewhere in your initialization file
   app.use(cookieParser());
@@ -23,7 +24,6 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document)
   app.useGlobalPipes(new ValidationPipe());
   //await app.listen(5000);
-  app.enableCors();
   await app.listen(process.env.PORT, '0.0.0.0');
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
