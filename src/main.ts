@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
    // allowedHeaders: ['content-type'],
-   origin: '*',
+   origin: 'https://vladimir-kozinsky.github.io/iservice/',
    credentials: true,
   })
   // somewhere in your initialization file
