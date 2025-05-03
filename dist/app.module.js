@@ -11,18 +11,13 @@ const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
 const auth_module_1 = require("./auth/auth.module");
 const mongoose_1 = require("@nestjs/mongoose");
-const aircraft_module_1 = require("./Aircraft/aircraft.module");
-const engine_module_1 = require("./Engine/engine.module");
-const leg_module_1 = require("./leg/leg.module");
-const apu_module_1 = require("./apu/apu.module");
-const gear_module_1 = require("./Gear/gear.module");
 const unit_module_1 = require("./Unit/unit.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [mongoose_1.MongooseModule.forRoot('mongodb+srv://user1:user1@cluster0.lswt8ul.mongodb.net/new-way?retryWrites=true&w=majority'),
-            auth_module_1.AuthModule, aircraft_module_1.AircraftModule, engine_module_1.EngineModule, leg_module_1.LegModule, apu_module_1.ApuModule, gear_module_1.GearModule, unit_module_1.UnitModule],
+            auth_module_1.AuthModule, unit_module_1.UnitModule],
         controllers: [],
         providers: [app_service_1.AppService],
     })

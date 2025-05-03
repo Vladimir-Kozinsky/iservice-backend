@@ -8,11 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateEngineDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-const engineHistory_schema_1 = require("../schemas/engineHistory.schema");
+const engineHistory_schema_1 = require("src/schemas/engineHistory.schema");
 class CreateEngineDto {
 }
 __decorate([
@@ -62,7 +63,7 @@ __decorate([
 ], CreateEngineDto.prototype, "csn", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 'none', description: "Engine removal/instolation action" }),
-    __metadata("design:type", engineHistory_schema_1.EngineHistory)
+    __metadata("design:type", typeof (_a = typeof engineHistory_schema_1.EngineHistory !== "undefined" && engineHistory_schema_1.EngineHistory) === "function" ? _a : Object)
 ], CreateEngineDto.prototype, "engineHistory", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '2024-01-30', description: "Last overhaul date" }),
