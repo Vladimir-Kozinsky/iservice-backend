@@ -7,20 +7,13 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-   // allowedHeaders: ['content-type', 'Access-Control-Allow-Origin', '*'],
-   allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization'],
-   origin: ['https://vladimir-kozinsky.github.io/iservice/'],
-    //credentials: true,
-    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
+    // allowedHeaders: ['content-type', 'Access-Control-Allow-Origin', '*'],
+    allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
+    origin: ['https://vladimir-kozinsky.github.io/iservice/'],
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
   })
   // somewhere in your initialization file
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
-    next();
-  });
-  
   app.use(cookieParser());
   const config = new DocumentBuilder()
     .setTitle('API')
