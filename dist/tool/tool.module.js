@@ -6,22 +6,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.ToolModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_service_1 = require("./app.service");
-const auth_module_1 = require("./auth/auth.module");
+const tool_controller_1 = require("./tool.controller");
+const tool_service_1 = require("./tool.service");
 const mongoose_1 = require("@nestjs/mongoose");
-const unit_module_1 = require("./Unit/unit.module");
-const tool_module_1 = require("./tool/tool.module");
-let AppModule = class AppModule {
+const tool_schema_1 = require("../schemas/tool.schema");
+let ToolModule = class ToolModule {
 };
-AppModule = __decorate([
+ToolModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forRoot('mongodb+srv://user1:user1@cluster0.lswt8ul.mongodb.net/new-way?retryWrites=true&w=majority'),
-            auth_module_1.AuthModule, unit_module_1.UnitModule, tool_module_1.ToolModule],
-        controllers: [],
-        providers: [app_service_1.AppService],
+        imports: [
+            mongoose_1.MongooseModule.forFeature([{
+                    name: tool_schema_1.Tool.name,
+                    schema: tool_schema_1.ToolSchema
+                }]),
+        ],
+        controllers: [tool_controller_1.ToolController],
+        providers: [tool_service_1.ToolService]
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], ToolModule);
+exports.ToolModule = ToolModule;
+//# sourceMappingURL=tool.module.js.map

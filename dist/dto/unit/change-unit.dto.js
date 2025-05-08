@@ -31,7 +31,6 @@ __decorate([
 ], ChangeUnitDto.prototype, "pn", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '289134', description: 'Serial Number' }),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], ChangeUnitDto.prototype, "sn", void 0);
 __decorate([

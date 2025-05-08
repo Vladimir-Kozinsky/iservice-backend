@@ -23,7 +23,7 @@ let UnitService = class UnitService {
     }
     async createUnit(createUnitDto) {
         const unit = await this.unitModel.findOne({ sn: createUnitDto.sn });
-        if (unit)
+        if (unit && createUnitDto.sn)
             throw new common_1.HttpException('Unit with this sn already exists', common_1.HttpStatus.BAD_REQUEST);
         return await this.unitModel.create(createUnitDto);
     }
