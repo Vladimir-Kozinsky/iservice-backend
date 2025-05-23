@@ -23,12 +23,24 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
+import { ApproveRequestsDto } from 'src/dto/request/approve-request.dto';
 import { CreateRequestDto } from 'src/dto/request/create-request.dto';
+import { GetRequestsDto } from 'src/dto/request/get-requests.dto';
 import { Request } from 'src/schemas/request.schema';
 export declare class RequestService {
     private readonly requestModel;
     constructor(requestModel: Model<Request>);
     createRequest(createRequestDto: CreateRequestDto): Promise<import("mongoose").Document<unknown, {}, Request> & Omit<Request & Required<{
+        _id: import("mongoose").Types.ObjectId;
+    }>, never>>;
+    getRequests(getRequestsDto: GetRequestsDto): Promise<{
+        totalPages: number;
+        currentPage: number;
+        requests: (import("mongoose").Document<unknown, {}, Request> & Omit<Request & Required<{
+            _id: import("mongoose").Types.ObjectId;
+        }>, never>)[];
+    }>;
+    approveRequest(approveRequestDto: ApproveRequestsDto): Promise<import("mongoose").Document<unknown, {}, Request> & Omit<Request & Required<{
         _id: import("mongoose").Types.ObjectId;
     }>, never>>;
 }

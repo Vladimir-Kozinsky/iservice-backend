@@ -26,10 +26,22 @@
 import { RequestService } from './request.service';
 import { Request } from 'src/schemas/request.schema';
 import { CreateRequestDto } from 'src/dto/request/create-request.dto';
+import { GetRequestsDto } from 'src/dto/request/get-requests.dto';
+import { ApproveRequestsDto } from 'src/dto/request/approve-request.dto';
 export declare class RequestController {
     private readonly requestService;
     constructor(requestService: RequestService);
     create(createRequestDto: CreateRequestDto): Promise<import("mongoose").Document<unknown, {}, Request> & Omit<Request & Required<{
+        _id: import("mongoose").Types.ObjectId;
+    }>, never>>;
+    requests(getRequestsDto: GetRequestsDto): Promise<{
+        totalPages: number;
+        currentPage: number;
+        requests: (import("mongoose").Document<unknown, {}, Request> & Omit<Request & Required<{
+            _id: import("mongoose").Types.ObjectId;
+        }>, never>)[];
+    }>;
+    approve(approveRequestsDto: ApproveRequestsDto): Promise<import("mongoose").Document<unknown, {}, Request> & Omit<Request & Required<{
         _id: import("mongoose").Types.ObjectId;
     }>, never>>;
 }

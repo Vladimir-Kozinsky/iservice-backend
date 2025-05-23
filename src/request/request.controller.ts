@@ -4,6 +4,8 @@ import { RequestService } from './request.service';
 import { CreateUnitDto } from 'src/dto/unit/create-unit.dto';
 import { Request } from 'src/schemas/request.schema';
 import { CreateRequestDto } from 'src/dto/request/create-request.dto';
+import { GetRequestsDto } from 'src/dto/request/get-requests.dto';
+import { ApproveRequestsDto } from 'src/dto/request/approve-request.dto';
 
 @ApiTags('Controller')
 @Controller('request')
@@ -16,5 +18,21 @@ export class RequestController {
     @HttpCode(201)
     async create(@Body() createRequestDto: CreateRequestDto) {
         return await this.requestService.createRequest(createRequestDto)
+    }
+
+    @ApiOperation({ summary: 'Get requests' })
+    @ApiResponse({ status: 201, type: Request })
+    @Post('/requests')
+    @HttpCode(201)
+    async requests(@Body() getRequestsDto: GetRequestsDto) {
+        return await this.requestService.getRequests(getRequestsDto)
+    }
+
+    @ApiOperation({ summary: 'Approved request' })
+    @ApiResponse({ status: 201, type: Request })
+    @Post('/approve')
+    @HttpCode(201)
+    async approve(@Body() approveRequestsDto: ApproveRequestsDto) {
+        return await this.requestService.approveRequest(approveRequestsDto)
     }
 }

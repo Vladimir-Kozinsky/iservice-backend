@@ -30,25 +30,20 @@ __decorate([
     __metadata("design:type", String)
 ], Request.prototype, "priority", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Approved', description: 'PO status' }),
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Request.prototype, "status", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ example: 'None', description: 'Request items' }),
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Array)
 ], Request.prototype, "items", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'Ovcharenco', description: 'Name who created request' }),
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], Request.prototype, "requestedBy", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({ example: 'Ovcharenco', description: 'Name who approved request' }),
+    (0, swagger_1.ApiProperty)({ example: 'Approved', description: 'Request status' }),
     (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", String)
-], Request.prototype, "approvedBy", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({ example: '25.06.2029', description: 'Request approve date' }),
-    (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", String)
-], Request.prototype, "approvedDate", void 0);
+    __metadata("design:type", Array)
+], Request.prototype, "statusHistory", void 0);
 Request = __decorate([
     (0, mongoose_1.Schema)()
 ], Request);

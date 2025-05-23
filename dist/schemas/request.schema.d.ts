@@ -29,16 +29,23 @@ export declare class Request {
     requestNumber: string;
     date: string;
     priority: string;
+    status: string;
     items: [
         item: number,
         pn: string,
         desc: string,
         ref: string,
-        quantity: number
+        quantity: number,
+        poRef: string
     ];
-    requestedBy: string;
-    approvedBy: string;
-    approvedDate: string;
+    statusHistory: [
+        {
+            date: string;
+            status: string;
+            remark: string;
+            user: string;
+        }
+    ];
 }
 export declare const RequestSchema: import("mongoose").Schema<Request, import("mongoose").Model<Request, any, any, any, import("mongoose").Document<unknown, any, Request> & Omit<Request & Required<{
     _id: Types.ObjectId;

@@ -18,12 +18,20 @@ const swagger_1 = require("@nestjs/swagger");
 const request_service_1 = require("./request.service");
 const request_schema_1 = require("../schemas/request.schema");
 const create_request_dto_1 = require("../dto/request/create-request.dto");
+const get_requests_dto_1 = require("../dto/request/get-requests.dto");
+const approve_request_dto_1 = require("../dto/request/approve-request.dto");
 let RequestController = class RequestController {
     constructor(requestService) {
         this.requestService = requestService;
     }
     async create(createRequestDto) {
         return await this.requestService.createRequest(createRequestDto);
+    }
+    async requests(getRequestsDto) {
+        return await this.requestService.getRequests(getRequestsDto);
+    }
+    async approve(approveRequestsDto) {
+        return await this.requestService.approveRequest(approveRequestsDto);
     }
 };
 __decorate([
@@ -36,6 +44,26 @@ __decorate([
     __metadata("design:paramtypes", [create_request_dto_1.CreateRequestDto]),
     __metadata("design:returntype", Promise)
 ], RequestController.prototype, "create", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Get requests' }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: request_schema_1.Request }),
+    (0, common_1.Post)('/requests'),
+    (0, common_1.HttpCode)(201),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [get_requests_dto_1.GetRequestsDto]),
+    __metadata("design:returntype", Promise)
+], RequestController.prototype, "requests", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Approved request' }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: request_schema_1.Request }),
+    (0, common_1.Post)('/approve'),
+    (0, common_1.HttpCode)(201),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [approve_request_dto_1.ApproveRequestsDto]),
+    __metadata("design:returntype", Promise)
+], RequestController.prototype, "approve", null);
 RequestController = __decorate([
     (0, swagger_1.ApiTags)('Controller'),
     (0, common_1.Controller)('request'),

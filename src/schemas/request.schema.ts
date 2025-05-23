@@ -21,6 +21,11 @@ export class Request {
     @Prop({ required: true })
     priority: string;
 
+    @ApiProperty({ example: 'Approved', description: 'PO status' })
+    @Prop({ required: true })
+    status: string;
+
+
     @ApiProperty({ example: 'None', description: 'Request items' })
     @Prop({ required: true })
     items: [
@@ -28,20 +33,20 @@ export class Request {
         pn: string,
         desc: string,
         ref: string,
-        quantity: number
+        quantity: number,
+        poRef: string,
     ];
 
-    @ApiProperty({ example: 'Ovcharenco', description: 'Name who created request' })
-    @Prop({ required: true })
-    requestedBy: string;
-
-    @ApiProperty({ example: 'Ovcharenco', description: 'Name who approved request' })
+    @ApiProperty({ example: 'Approved', description: 'Request status' })
     @Prop({ required: false })
-    approvedBy: string;
-
-    @ApiProperty({ example: '25.06.2029', description: 'Request approve date' })
-    @Prop({ required: false })
-    approvedDate: string;
+    statusHistory: [
+        {
+            date: string,
+            status: string,
+            remark: string,
+            user: string,
+        }
+    ];
 }
 
 

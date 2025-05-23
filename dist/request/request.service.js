@@ -27,6 +27,52 @@ let RequestService = class RequestService {
             throw new common_1.HttpException('Request with this number already exists', common_1.HttpStatus.BAD_REQUEST);
         return await this.requestModel.create(createRequestDto);
     }
+    async getRequests(getRequestsDto) {
+        if (!getRequestsDto.searchText) {
+            const requestsNumber = await this.requestModel.find().count();
+            if (!requestsNumber)
+                throw new common_1.HttpException('Requests not found', common_1.HttpStatus.BAD_REQUEST);
+            const numberUnitsToScip = getRequestsDto.page === 1 ? 0 : (getRequestsDto.page - 1) * getRequestsDto.requestsAtPage;
+            const requests = await this.requestModel
+                .find({ status: getRequestsDto.statusFilter })
+                .skip(numberUnitsToScip)
+                .limit(getRequestsDto.requestsAtPage);
+            if (!requests.length)
+                throw new common_1.HttpException('Requests not found', common_1.HttpStatus.BAD_REQUEST);
+            return {
+                totalPages: Math.ceil(requestsNumber / getRequestsDto.requestsAtPage),
+                currentPage: getRequestsDto.page,
+                requests: requests
+            };
+        }
+        const requests = await this.requestModel.find(({
+            pn: { $regex: getRequestsDto.searchText }
+        }));
+        if (!requests.length)
+            throw new common_1.HttpException('Requests not found', common_1.HttpStatus.BAD_REQUEST);
+        return {
+            totalPages: Math.ceil(+requests.length / getRequestsDto.requestsAtPage),
+            currentPage: getRequestsDto.page,
+            requests: requests
+        };
+    }
+    async approveRequest(approveRequestDto) {
+        const date = new Date();
+        const request = await this.requestModel.findOneAndUpdate({ requestNumber: approveRequestDto.requestNumber }, {
+            status: 'approved',
+        });
+        if (!request)
+            throw new common_1.HttpException('Request is not exists', common_1.HttpStatus.BAD_REQUEST);
+        await request.statusHistory.push({
+            date: date.toISOString().split('T')[0],
+            status: 'approved',
+            remark: '',
+            user: approveRequestDto.approvedBy
+        });
+        await request.save();
+        const updatedRequest = await this.requestModel.findOne({ requestNumber: approveRequestDto.requestNumber });
+        return updatedRequest;
+    }
 };
 RequestService = __decorate([
     (0, common_1.Injectable)(),

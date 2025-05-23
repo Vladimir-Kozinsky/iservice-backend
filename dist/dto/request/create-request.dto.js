@@ -34,17 +34,12 @@ __decorate([
     __metadata("design:type", Array)
 ], CreateRequestDto.prototype, "items", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'Ovcharenco', description: 'Name who created request' }),
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, swagger_1.ApiProperty)({ example: 'Approved', description: 'Request status' }),
     __metadata("design:type", String)
-], CreateRequestDto.prototype, "requestedBy", void 0);
+], CreateRequestDto.prototype, "status", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'Ovcharenco', description: 'Name who approved request' }),
-    __metadata("design:type", String)
-], CreateRequestDto.prototype, "approvedBy", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({ example: '25.06.2029', description: 'Request approve date' }),
-    __metadata("design:type", String)
-], CreateRequestDto.prototype, "approvedDate", void 0);
+    (0, swagger_1.ApiProperty)({ example: 'Approved', description: 'Request status' }),
+    __metadata("design:type", Array)
+], CreateRequestDto.prototype, "statusHistory", void 0);
 exports.CreateRequestDto = CreateRequestDto;
 //# sourceMappingURL=create-request.dto.js.map

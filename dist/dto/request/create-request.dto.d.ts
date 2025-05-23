@@ -9,7 +9,11 @@ export declare class CreateRequestDto {
         ref: string,
         quantity: number
     ];
-    readonly requestedBy: string;
-    readonly approvedBy: string;
-    readonly approvedDate: string;
+    readonly status: string;
+    readonly statusHistory: [
+        date: string,
+        status: string,
+        remark: string,
+        user: string
+    ];
 }
