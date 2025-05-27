@@ -40,7 +40,7 @@ export class UnitService {
 
     async getUnits(getUnitsDto: GetUnitsDto) {
         if (!getUnitsDto.searchText) {
-            const unitsNumber = await this.unitModel.find().count();
+            const unitsNumber = await this.unitModel.find({ location: getUnitsDto.locationFilter }).count();
             if (!unitsNumber) throw new HttpException('Units not found', HttpStatus.BAD_REQUEST);
             const numberUnitsToScip = getUnitsDto.page === 1 ? 0 : (getUnitsDto.page - 1) * getUnitsDto.unitsAtPage;
 
