@@ -6,6 +6,7 @@ import { Request } from 'src/schemas/request.schema';
 import { CreateRequestDto } from 'src/dto/request/create-request.dto';
 import { GetRequestsDto } from 'src/dto/request/get-requests.dto';
 import { ApproveRequestsDto } from 'src/dto/request/approve-request.dto';
+import { CancelRequestDto } from 'src/dto/request/cancel-request.dto';
 
 @ApiTags('Controller')
 @Controller('request')
@@ -34,5 +35,13 @@ export class RequestController {
     @HttpCode(201)
     async approve(@Body() approveRequestsDto: ApproveRequestsDto) {
         return await this.requestService.approveRequest(approveRequestsDto)
+    }
+
+    @ApiOperation({ summary: 'Cancel request' })
+    @ApiResponse({ status: 201, type: Request })
+    @Post('/cancel')
+    @HttpCode(201)
+    async cancel(@Body() cancelRequestDto: CancelRequestDto) {
+        return await this.requestService.cancelRequest(cancelRequestDto);
     }
 }

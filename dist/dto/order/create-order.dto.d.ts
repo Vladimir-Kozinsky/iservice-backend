@@ -19,4 +19,5 @@ export declare class CreateOrderDto {
     readonly supplier: string;
     readonly shipAdress: string;
     readonly status: string;
+    readonly createdBy: string;
 }

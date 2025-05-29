@@ -46,7 +46,7 @@ let UnitService = class UnitService {
     }
     async getUnits(getUnitsDto) {
         if (!getUnitsDto.searchText) {
-            const unitsNumber = await this.unitModel.find().count();
+            const unitsNumber = await this.unitModel.find({ location: getUnitsDto.locationFilter }).count();
             if (!unitsNumber)
                 throw new common_1.HttpException('Units not found', common_1.HttpStatus.BAD_REQUEST);
             const numberUnitsToScip = getUnitsDto.page === 1 ? 0 : (getUnitsDto.page - 1) * getUnitsDto.unitsAtPage;

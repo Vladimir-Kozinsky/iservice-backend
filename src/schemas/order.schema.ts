@@ -80,6 +80,10 @@ export class Order {
 
     @ApiProperty({ example: 'Ovcharenco', description: 'Name who approved request' })
     @Prop({ required: false })
+    createdBy: string;
+
+    @ApiProperty({ example: 'Ovcharenco', description: 'Name who approved request' })
+    @Prop({ required: false })
     approvedBy: string;
 
     @ApiProperty({ example: '25.06.2029', description: 'Request approve date' })

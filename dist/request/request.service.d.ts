@@ -24,6 +24,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
 import { ApproveRequestsDto } from 'src/dto/request/approve-request.dto';
+import { CancelRequestDto } from 'src/dto/request/cancel-request.dto';
 import { CreateRequestDto } from 'src/dto/request/create-request.dto';
 import { GetRequestsDto } from 'src/dto/request/get-requests.dto';
 import { Request } from 'src/schemas/request.schema';
@@ -41,6 +42,9 @@ export declare class RequestService {
         }>, never>)[];
     }>;
     approveRequest(approveRequestDto: ApproveRequestsDto): Promise<import("mongoose").Document<unknown, {}, Request> & Omit<Request & Required<{
+        _id: import("mongoose").Types.ObjectId;
+    }>, never>>;
+    cancelRequest(cancelRequestDto: CancelRequestDto): Promise<import("mongoose").Document<unknown, {}, Request> & Omit<Request & Required<{
         _id: import("mongoose").Types.ObjectId;
     }>, never>>;
 }

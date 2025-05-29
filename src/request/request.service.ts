@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ApproveRequestsDto } from 'src/dto/request/approve-request.dto';
+import { CancelRequestDto } from 'src/dto/request/cancel-request.dto';
 import { CreateRequestDto } from 'src/dto/request/create-request.dto';
 import { GetRequestsDto } from 'src/dto/request/get-requests.dto';
 import { Request } from 'src/schemas/request.schema';
@@ -67,9 +68,31 @@ export class RequestService {
             remark: '',
             user: approveRequestDto.approvedBy
         })
-        
+
         await request.save();
         const updatedRequest = await this.requestModel.findOne({ requestNumber: approveRequestDto.requestNumber });
+        return updatedRequest;
+    }
+
+    async cancelRequest(cancelRequestDto: CancelRequestDto) {
+        const date = new Date();
+        const req = await this.requestModel.findOneAndUpdate(
+            { requestNumber: cancelRequestDto.requestNumber },
+            {
+                status: 'cancelled'
+            }
+        );
+
+        if (!req) throw new HttpException('Request is not exists', HttpStatus.BAD_REQUEST);
+        await req.statusHistory.push({
+            date: date.toISOString().split('T')[0],
+            status: 'cancelled',
+            remark: '',
+            user: cancelRequestDto.canceledBy
+        })
+        await req.save();
+
+        const updatedRequest = await this.requestModel.findOne({ requestNumber: cancelRequestDto.requestNumber });
         return updatedRequest;
     }
 

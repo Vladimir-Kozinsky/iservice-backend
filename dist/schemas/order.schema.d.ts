@@ -56,6 +56,7 @@ export declare class Order {
     ];
     acceptedBy: string;
     acceptedDate: string;
+    createdBy: string;
     approvedBy: string;
     approvedDate: string;
 }

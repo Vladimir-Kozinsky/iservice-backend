@@ -73,6 +73,23 @@ let RequestService = class RequestService {
         const updatedRequest = await this.requestModel.findOne({ requestNumber: approveRequestDto.requestNumber });
         return updatedRequest;
     }
+    async cancelRequest(cancelRequestDto) {
+        const date = new Date();
+        const req = await this.requestModel.findOneAndUpdate({ requestNumber: cancelRequestDto.requestNumber }, {
+            status: 'cancelled'
+        });
+        if (!req)
+            throw new common_1.HttpException('Request is not exists', common_1.HttpStatus.BAD_REQUEST);
+        await req.statusHistory.push({
+            date: date.toISOString().split('T')[0],
+            status: 'cancelled',
+            remark: '',
+            user: cancelRequestDto.canceledBy
+        });
+        await req.save();
+        const updatedRequest = await this.requestModel.findOne({ requestNumber: cancelRequestDto.requestNumber });
+        return updatedRequest;
+    }
 };
 RequestService = __decorate([
     (0, common_1.Injectable)(),

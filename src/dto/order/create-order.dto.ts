@@ -52,4 +52,8 @@ export class CreateOrderDto {
     @ApiProperty({ example: 'Approved', description: 'PO status' })
     readonly status: string;
 
+    @ApiProperty({ example: 'Ovcharenco', description: 'Name who approved request' })
+    @IsNotEmpty()
+    readonly createdBy: string;
+
 }

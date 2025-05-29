@@ -44,7 +44,7 @@ let ToolService = class ToolService {
     }
     async getTools(getUnitsDto) {
         if (!getUnitsDto.searchText) {
-            const unitsNumber = await this.toolModel.find().count();
+            const unitsNumber = await this.toolModel.find({ location: getUnitsDto.locationFilter }).count();
             if (!unitsNumber)
                 throw new common_1.HttpException('Tools not found', common_1.HttpStatus.BAD_REQUEST);
             const numberUnitsToScip = getUnitsDto.page === 1 ? 0 : (getUnitsDto.page - 1) * getUnitsDto.toolsAtPage;

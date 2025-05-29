@@ -20,6 +20,7 @@ const request_schema_1 = require("../schemas/request.schema");
 const create_request_dto_1 = require("../dto/request/create-request.dto");
 const get_requests_dto_1 = require("../dto/request/get-requests.dto");
 const approve_request_dto_1 = require("../dto/request/approve-request.dto");
+const cancel_request_dto_1 = require("../dto/request/cancel-request.dto");
 let RequestController = class RequestController {
     constructor(requestService) {
         this.requestService = requestService;
@@ -32,6 +33,9 @@ let RequestController = class RequestController {
     }
     async approve(approveRequestsDto) {
         return await this.requestService.approveRequest(approveRequestsDto);
+    }
+    async cancel(cancelRequestDto) {
+        return await this.requestService.cancelRequest(cancelRequestDto);
     }
 };
 __decorate([
@@ -64,6 +68,16 @@ __decorate([
     __metadata("design:paramtypes", [approve_request_dto_1.ApproveRequestsDto]),
     __metadata("design:returntype", Promise)
 ], RequestController.prototype, "approve", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Cancel request' }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: request_schema_1.Request }),
+    (0, common_1.Post)('/cancel'),
+    (0, common_1.HttpCode)(201),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [cancel_request_dto_1.CancelRequestDto]),
+    __metadata("design:returntype", Promise)
+], RequestController.prototype, "cancel", null);
 RequestController = __decorate([
     (0, swagger_1.ApiTags)('Controller'),
     (0, common_1.Controller)('request'),

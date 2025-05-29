@@ -9,20 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AcceptOrderDto = void 0;
+exports.CancelRequestDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-class AcceptOrderDto {
+class CancelRequestDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '2589134', description: 'PO Number' }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], AcceptOrderDto.prototype, "poNumber", void 0);
+], CancelRequestDto.prototype, "requestNumber", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'Ovcharenco', description: 'Name who approved request' }),
+    (0, swagger_1.ApiProperty)({ example: 'Ovcharenco', description: 'Name who cancelled order' }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], AcceptOrderDto.prototype, "acceptedBy", void 0);
-exports.AcceptOrderDto = AcceptOrderDto;
-//# sourceMappingURL=accept-order.dto%20copy.js.map
+], CancelRequestDto.prototype, "canceledBy", void 0);
+exports.CancelRequestDto = CancelRequestDto;
+//# sourceMappingURL=cancel-request.dto.js.map

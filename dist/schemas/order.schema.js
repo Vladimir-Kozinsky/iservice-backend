@@ -83,6 +83,11 @@ __decorate([
     (0, swagger_1.ApiProperty)({ example: 'Ovcharenco', description: 'Name who approved request' }),
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
+], Order.prototype, "createdBy", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Ovcharenco', description: 'Name who approved request' }),
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
 ], Order.prototype, "approvedBy", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '25.06.2029', description: 'Request approve date' }),

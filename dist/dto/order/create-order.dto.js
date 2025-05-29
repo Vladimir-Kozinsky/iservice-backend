@@ -63,5 +63,10 @@ __decorate([
     (0, swagger_1.ApiProperty)({ example: 'Approved', description: 'PO status' }),
     __metadata("design:type", String)
 ], CreateOrderDto.prototype, "status", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Ovcharenco', description: 'Name who approved request' }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateOrderDto.prototype, "createdBy", void 0);
 exports.CreateOrderDto = CreateOrderDto;
 //# sourceMappingURL=create-order.dto.js.map
