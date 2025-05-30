@@ -65,7 +65,7 @@ let OrderService = class OrderService {
         }
         const orders = await this.orderModel.find(({
             status: getOrdersDto.statusFilter,
-            pn: { $regex: getOrdersDto.searchText }
+            pn: { $regex: getOrdersDto.searchText, $options: 'i' }
         }));
         if (!orders.length)
             throw new common_1.HttpException('Orders not found', common_1.HttpStatus.BAD_REQUEST);

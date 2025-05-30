@@ -46,7 +46,7 @@ let RequestService = class RequestService {
             };
         }
         const requests = await this.requestModel.find(({
-            pn: { $regex: getRequestsDto.searchText }
+            pn: { $regex: getRequestsDto.searchText, $options: 'i' }
         }));
         if (!requests.length)
             throw new common_1.HttpException('Requests not found', common_1.HttpStatus.BAD_REQUEST);

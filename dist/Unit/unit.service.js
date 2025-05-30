@@ -34,7 +34,6 @@ let UnitService = class UnitService {
         const updatedUnit = await this.unitModel.findOne({ _id: editUnitDto._id });
         if (!updatedUnit)
             throw new common_1.HttpException('Unit with this id is not exists', common_1.HttpStatus.BAD_REQUEST);
-        await console.log(updatedUnit);
         return updatedUnit;
     }
     async deleteUnit(deleteUnitDto) {
@@ -64,7 +63,10 @@ let UnitService = class UnitService {
         }
         const units = await this.unitModel.find(({
             location: getUnitsDto.locationFilter,
-            pn: { $regex: getUnitsDto.searchText }
+            $or: [
+                { pn: { $regex: getUnitsDto.searchText, $options: 'i' } },
+                { desc: { $regex: getUnitsDto.searchText, $options: 'i' } }
+            ]
         }));
         if (!units.length)
             throw new common_1.HttpException('Units not found', common_1.HttpStatus.BAD_REQUEST);
@@ -83,7 +85,10 @@ let UnitService = class UnitService {
         }
         const units = await this.unitModel.find(({
             location: getPrintUnitsDto.locationFilter,
-            pn: { $regex: getPrintUnitsDto.searchText }
+            $or: [
+                { pn: { $regex: getPrintUnitsDto.searchText, $options: 'i' } },
+                { desc: { $regex: getPrintUnitsDto.searchText, $options: 'i' } }
+            ]
         }));
         if (!units.length)
             throw new common_1.HttpException('Units not found', common_1.HttpStatus.BAD_REQUEST);

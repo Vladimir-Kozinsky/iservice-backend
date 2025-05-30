@@ -56,7 +56,10 @@ export class ToolService {
 
         const units = await this.toolModel.find(({
             location: getUnitsDto.locationFilter,
-            pn: { $regex: getUnitsDto.searchText }
+            $or: [
+                { pn: { $regex: getUnitsDto.searchText, $options: 'i' } },
+                { desc: { $regex: getUnitsDto.searchText, $options: 'i' } }
+            ]
         }));
 
         if (!units.length) throw new HttpException('Tools not found', HttpStatus.BAD_REQUEST);
@@ -80,7 +83,10 @@ export class ToolService {
 
         const units = await this.toolModel.find(({
             location: getPrintUnitsDto.locationFilter,
-            pn: { $regex: getPrintUnitsDto.searchText }
+            $or: [
+                { pn: { $regex: getPrintUnitsDto.searchText, $options: 'i' } },
+                { desc: { $regex: getPrintUnitsDto.searchText, $options: 'i' } }
+            ]
         }));
 
         if (!units.length) throw new HttpException('Tools not found', HttpStatus.BAD_REQUEST);

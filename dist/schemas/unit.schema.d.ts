@@ -28,6 +28,7 @@ export declare class Unit {
     _id: Types.ObjectId;
     ata: string;
     pn: string;
+    altPn: string;
     sn: string;
     type: string;
     desc: string;

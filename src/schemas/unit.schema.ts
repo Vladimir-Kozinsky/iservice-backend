@@ -17,6 +17,10 @@ export class Unit {
     @Prop({ required: true })
     pn: string;
 
+    @ApiProperty({ example: '2589134', description: 'Part Number' })
+    @Prop({ required: true })
+    altPn: string;
+
     @ApiProperty({ example: '289134', description: 'Serial Number' })
     @Prop({ required: false })
     sn: string;
