@@ -115,6 +115,27 @@ let UnitService = class UnitService {
         await console.log(updatedUnit);
         return updatedUnit;
     }
+    async splitUnit(useUnitDto) {
+        const currentUnit = await this.unitModel.findOne({ _id: useUnitDto._id });
+        if (!currentUnit)
+            throw new common_1.HttpException('Unit with this id is not exists', common_1.HttpStatus.BAD_REQUEST);
+        const unit = await this.unitModel.findOneAndUpdate({ _id: useUnitDto._id }, { quantity: currentUnit.quantity - useUnitDto.quantity });
+        if (!unit)
+            throw new common_1.HttpException('Unit with this id is not exists', common_1.HttpStatus.BAD_REQUEST);
+        unit.usage.push({
+            date: useUnitDto.date,
+            aircraft: useUnitDto.aircraft,
+            wo: useUnitDto.wo,
+            quantity: useUnitDto.quantity,
+            remark: useUnitDto.remark
+        });
+        unit.save();
+        const updatedUnit = await this.unitModel.findOne({ _id: useUnitDto._id });
+        if (!updatedUnit)
+            throw new common_1.HttpException('Unit with this id is not exists', common_1.HttpStatus.BAD_REQUEST);
+        await console.log(updatedUnit);
+        return updatedUnit;
+    }
 };
 UnitService = __decorate([
     (0, common_1.Injectable)(),

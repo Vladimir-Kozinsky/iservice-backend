@@ -56,4 +56,7 @@ export declare class UnitService {
     useUnit(useUnitDto: UseUnitDto): Promise<import("mongoose").Document<unknown, {}, Unit> & Omit<Unit & Required<{
         _id: import("mongoose").Types.ObjectId;
     }>, never>>;
+    splitUnit(useUnitDto: UseUnitDto): Promise<import("mongoose").Document<unknown, {}, Unit> & Omit<Unit & Required<{
+        _id: import("mongoose").Types.ObjectId;
+    }>, never>>;
 }
