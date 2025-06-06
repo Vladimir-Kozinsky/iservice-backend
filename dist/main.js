@@ -7,13 +7,15 @@ const swagger_1 = require("@nestjs/swagger");
 const cookieParser = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+        next();
+    });
     app.enableCors({
-        allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
-        origin: '*',
+        origin: ['https://vladimir-kozinsky.github.io', 'http://localhost:3000', 'https://vladimir-kozinsky.github.io'],
         credentials: true,
-        preflightContinue: false,
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-        optionsSuccessStatus: 204
     });
     app.use(cookieParser());
     const config = new swagger_1.DocumentBuilder()
@@ -25,7 +27,7 @@ async function bootstrap() {
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api/docs', app, document);
     app.useGlobalPipes(new common_1.ValidationPipe());
-    await app.listen(5000);
+    await app.listen(process.env.PORT, '0.0.0.0');
     console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
