@@ -8,8 +8,12 @@ const cookieParser = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({
-        origin: ['https://vladimir-kozinsky.github.io', 'http://localhost:3000'],
+        allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
+        origin: '*',
         credentials: true,
+        preflightContinue: false,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        optionsSuccessStatus: 204
     });
     app.use(cookieParser());
     const config = new swagger_1.DocumentBuilder()
