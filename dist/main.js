@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({
-        allowedHeaders: ['content-type', 'authorization'],
+        allowedHeaders: ['X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe', 'Authorization'],
         origin: ['https://vladimir-kozinsky.github.io', 'http://localhost:3000', 'https://vladimir-kozinsky.github.io'],
         credentials: true,
     });
