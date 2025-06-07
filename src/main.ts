@@ -10,7 +10,7 @@ async function bootstrap() {
     allowedHeaders: ['content-type', 'authorization'],
     //allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
     //allowedHeaders: ['x-amz-security-token','x-amz-date','x-amz-content-sha256','Origin','Host','Date','Content-MD5', 'Access-Control-Request-Method', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe', 'Authorization'],
-    origin: ['http://vladimir-kozinsky.github.io', 'http://localhost:3000'],
+    origin: ['https://vladimir-kozinsky.github.io', 'http://localhost:3000'],
     credentials: true,
     //methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   })
