@@ -7,10 +7,10 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    allowedHeaders: ['content-type', 'authorization'],
+    allowedHeaders: ['content-type', 'authorization', 'accept'],
     //allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
     //allowedHeaders: ['x-amz-security-token','x-amz-date','x-amz-content-sha256','Origin','Host','Date','Content-MD5', 'Access-Control-Request-Method', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe', 'Authorization'],
-    origin: ['https://vladimir-kozinsky.github.io', 'http://localhost:3000'],
+    origin: ['https://vladimir-kozinsky.github.io/', 'http://localhost:3000'],
     credentials: true,
     //methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   })
