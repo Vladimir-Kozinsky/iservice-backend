@@ -8,8 +8,8 @@ const cookieParser = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({
-        allowedHeaders: ['x-amz-security-token', 'x-amz-date', 'x-amz-content-sha256', 'Origin', 'Host', 'Date', 'Content-MD5', 'Access-Control-Request-Method', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe', 'Authorization'],
-        origin: ['https://vladimir-kozinsky.github.io', 'http://localhost:3000', 'https://vladimir-kozinsky.github.io'],
+        allowedHeaders: ['content-type', 'authorization'],
+        origin: ['http://vladimir-kozinsky.github.io', 'http://localhost:3000'],
         credentials: true,
     });
     app.use(cookieParser());
@@ -22,7 +22,7 @@ async function bootstrap() {
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api/docs', app, document);
     app.useGlobalPipes(new common_1.ValidationPipe());
-    await app.listen(5000);
+    await app.listen(process.env.PORT, '0.0.0.0');
     console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
