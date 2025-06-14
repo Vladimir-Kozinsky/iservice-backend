@@ -7,37 +7,16 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  var whitelist = ['https://vladimir-kozinsky.github.io', 'http://localhost:3000'];
+
+
   app.enableCors({
-    origin: function (origin, callback) {
-      if (whitelist.indexOf(origin) !== -1) {
-        console.log("allowed cors for:", origin)
-        callback(null, true)
-      } else {
-        console.log("blocked cors for:", origin)
-        callback(new Error('Not allowed by CORS'))
-      }
-    },
-    allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, authorization, Content-Type, Accept, Access-Control-Allow-Origin, *, Observe',
-    methods: "GET,PUT,POST,DELETE,UPDATE,OPTIONS",
+    allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
+    origin: ['https://vladimir-kozinsky.github.io'],
+    //origin: 'http://localhost:3000',
     credentials: true,
-  });
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
 
-  //app.enableCors({
-  //allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
-  // origin: ['https://vladimir-kozinsky.github.io'],
-  //origin: 'http://localhost:3000',
-  //credentials: true,
-  //methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
-
-  // app.enableCors({
-  //allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Auth-Token', 'Content-Length', 'X-JSON',  'Observe'],
-  //  allowedHeaders: 'Content-Type, Authorization, Accept, Origin, X-Auth-Token, Content-Length, X-JSON, Observe',
-  // origin: ['https://vladimir-kozinsky.github.io', 'https://vladimir-kozinsky.github.io/', 'https://vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io', 'http://localhost:3000'],
-  //origin: 'https://vladimir-kozinsky.github.io,  http://localhost:3000',
-  // credentials: true,
-  //  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS, UPDATE",
-  //})
+  })
   // somewhere in your initialization file
   app.use(cookieParser());
   const config = new DocumentBuilder()
