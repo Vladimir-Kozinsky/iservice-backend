@@ -18,7 +18,7 @@ async function bootstrap() {
         callback(new Error('Not allowed by CORS'))
       }
     },
-    allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, authorization, Content-Type, Accept, Observe',
+    allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, authorization, Content-Type, Accept, Access-Control-Allow-Origin, *, Observe',
     methods: "GET,PUT,POST,DELETE,UPDATE,OPTIONS",
     credentials: true,
   });
@@ -49,7 +49,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document)
   app.useGlobalPipes(new ValidationPipe());
- // await app.listen(5000);
+  // await app.listen(5000);
   await app.listen(process.env.PORT, '0.0.0.0');
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
