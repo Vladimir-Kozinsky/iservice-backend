@@ -6,13 +6,21 @@ import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.enableCors({
-    //allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Auth-Token', 'Content-Length', 'X-JSON',  'Observe'],
-    allowedHeaders: 'Content-Type, Authorization, Accept, Origin, X-Auth-Token, Content-Length, X-JSON, Observe',
-    origin: ['https://vladimir-kozinsky.github.io', 'https://vladimir-kozinsky.github.io/', 'https://vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io', 'http://localhost:3000'],
-    //origin: 'https://vladimir-kozinsky.github.io,  http://localhost:3000',
+    allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
+    origin: ['https://vladimir-kozinsky.github.io'],
+    //origin: 'http://localhost:3000',
     credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS, UPDATE",
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
+
+    // app.enableCors({
+    //allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Auth-Token', 'Content-Length', 'X-JSON',  'Observe'],
+    //  allowedHeaders: 'Content-Type, Authorization, Accept, Origin, X-Auth-Token, Content-Length, X-JSON, Observe',
+    // origin: ['https://vladimir-kozinsky.github.io', 'https://vladimir-kozinsky.github.io/', 'https://vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io', 'http://localhost:3000'],
+    //origin: 'https://vladimir-kozinsky.github.io,  http://localhost:3000',
+    // credentials: true,
+    //  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS, UPDATE",
   })
   // somewhere in your initialization file
   app.use(cookieParser());
