@@ -7,21 +7,37 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  var whitelist = ['https://vladimir-kozinsky.github.io', 'http://localhost:3000'];
   app.enableCors({
-    allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
-    origin: ['https://vladimir-kozinsky.github.io'],
-    //origin: 'http://localhost:3000',
+    origin: function (origin, callback) {
+      if (whitelist.indexOf(origin) !== -1) {
+        console.log("allowed cors for:", origin)
+        callback(null, true)
+      } else {
+        console.log("blocked cors for:", origin)
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
+    allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, authorization, Content-Type, Accept, Observe',
+    methods: "GET,PUT,POST,DELETE,UPDATE,OPTIONS",
     credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
+  });
 
-    // app.enableCors({
-    //allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Auth-Token', 'Content-Length', 'X-JSON',  'Observe'],
-    //  allowedHeaders: 'Content-Type, Authorization, Accept, Origin, X-Auth-Token, Content-Length, X-JSON, Observe',
-    // origin: ['https://vladimir-kozinsky.github.io', 'https://vladimir-kozinsky.github.io/', 'https://vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io', 'http://localhost:3000'],
-    //origin: 'https://vladimir-kozinsky.github.io,  http://localhost:3000',
-    // credentials: true,
-    //  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS, UPDATE",
-  })
+  //app.enableCors({
+  //allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
+  // origin: ['https://vladimir-kozinsky.github.io'],
+  //origin: 'http://localhost:3000',
+  //credentials: true,
+  //methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
+
+  // app.enableCors({
+  //allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Auth-Token', 'Content-Length', 'X-JSON',  'Observe'],
+  //  allowedHeaders: 'Content-Type, Authorization, Accept, Origin, X-Auth-Token, Content-Length, X-JSON, Observe',
+  // origin: ['https://vladimir-kozinsky.github.io', 'https://vladimir-kozinsky.github.io/', 'https://vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io', 'http://localhost:3000'],
+  //origin: 'https://vladimir-kozinsky.github.io,  http://localhost:3000',
+  // credentials: true,
+  //  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS, UPDATE",
+  //})
   // somewhere in your initialization file
   app.use(cookieParser());
   const config = new DocumentBuilder()
@@ -33,7 +49,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document)
   app.useGlobalPipes(new ValidationPipe());
-  //await app.listen(5000);
+ // await app.listen(5000);
   await app.listen(process.env.PORT, '0.0.0.0');
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
