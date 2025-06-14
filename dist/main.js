@@ -7,21 +7,11 @@ const swagger_1 = require("@nestjs/swagger");
 const cookieParser = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    var whitelist = ['https://vladimir-kozinsky.github.io', 'http://localhost:3000'];
     app.enableCors({
-        origin: function (origin, callback) {
-            if (whitelist.indexOf(origin) !== -1) {
-                console.log("allowed cors for:", origin);
-                callback(null, true);
-            }
-            else {
-                console.log("blocked cors for:", origin);
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
-        allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, authorization, Content-Type, Accept, Observe',
-        methods: "GET,PUT,POST,DELETE,UPDATE,OPTIONS",
+        allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
+        origin: true,
         credentials: true,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
     });
     app.use(cookieParser());
     const config = new swagger_1.DocumentBuilder()
