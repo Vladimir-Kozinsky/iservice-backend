@@ -7,12 +7,12 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    allowedHeaders: ['content-type', 'authorization', 'accept'],
+    allowedHeaders: ['content-type', 'authorization', 'accept', 'Origin', 'X-Auth-Token', 'Content-Length', 'X-JSON'],
     //allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
-    //allowedHeaders: ['x-amz-security-token','x-amz-date','x-amz-content-sha256','Origin','Host','Date','Content-MD5', 'Access-Control-Request-Method', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe', 'Authorization'],
-    origin: ['https://vladimir-kozinsky.github.io/', 'http://localhost:3000'],
+    // allowedHeaders: [],
+    origin: ['https://vladimir-kozinsky.github.io', 'https://vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io/*', 'https://www.vladimir-kozinsky.github.io', 'http://localhost:3000'],
     credentials: true,
-    //methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS, UPDATE",
   })
   // somewhere in your initialization file
   app.use(cookieParser());
