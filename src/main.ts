@@ -13,7 +13,7 @@ async function bootstrap() {
     //origin: 'http://localhost:3000',
     //origin: true,
     credentials: true,
-    preflightContinue: false,
+    //preflightContinue: false,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
   })
   // somewhere in your initialization file
