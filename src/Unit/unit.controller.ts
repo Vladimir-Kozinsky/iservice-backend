@@ -12,13 +12,21 @@ import { GetPrintUnitsDto } from 'src/dto/unit/print-units.dto';
 @Controller('unit')
 export class UnitController {
     constructor(private readonly unitService: UnitService) { }
-    
+
     @ApiOperation({ summary: 'Add unit' })
     @ApiResponse({ status: 201, type: Unit })
     @Post('/create')
     @HttpCode(201)
     async create(@Body() createUnitDto: CreateUnitDto) {
         return await this.unitService.createUnit(createUnitDto)
+    }
+
+    @ApiOperation({ summary: 'Add unit' })
+    @ApiResponse({ status: 201, type: Unit })
+    @Get('/test')
+    @HttpCode(201)
+    async test() {
+        return await this.unitService.test();
     }
 
     @ApiOperation({ summary: 'Edit unit' })
@@ -41,7 +49,7 @@ export class UnitController {
     @ApiResponse({ status: 201, type: Unit })
     @Post('/units')
     @HttpCode(201)
-    async units(@Body() getUnitsDto: GetUnitsDto ) {
+    async units(@Body() getUnitsDto: GetUnitsDto) {
         return await this.unitService.getUnits(getUnitsDto)
     }
 
@@ -49,7 +57,7 @@ export class UnitController {
     @ApiResponse({ status: 201, type: Unit })
     @Post('/print')
     @HttpCode(201)
-    async print(@Body() getPrintUnitsDto: GetPrintUnitsDto ) {
+    async print(@Body() getPrintUnitsDto: GetPrintUnitsDto) {
         return await this.unitService.getPrintUnits(getPrintUnitsDto);
     }
 
@@ -57,7 +65,7 @@ export class UnitController {
     @ApiResponse({ status: 201, type: Unit })
     @Post('/use')
     @HttpCode(201)
-    async use(@Body() useUnitDto: UseUnitDto ) {
+    async use(@Body() useUnitDto: UseUnitDto) {
         return await this.unitService.useUnit(useUnitDto)
     }
 }
