@@ -9,7 +9,7 @@ async function bootstrap() {
 
   app.enableCors({
     allowedHeaders: ['origin', 'x-requested-with', 'content-type', 'accept', 'authorization', 'Access-Control-Allow-Origin', '*'],
-    origin: ['https://vladimir-kozinsky.github.io', 'http://localhost:3000'],
+    origin: 'https://vladimir-kozinsky.github.io',
     //origin: 'http://localhost:3000',
     //origin: true,
     credentials: true,
