@@ -26,7 +26,7 @@ __decorate([
 ], Unit.prototype, "pn", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '2589134', description: 'Part Number' }),
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], Unit.prototype, "altPn", void 0);
 __decorate([
