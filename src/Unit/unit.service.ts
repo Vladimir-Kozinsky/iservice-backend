@@ -75,6 +75,10 @@ export class UnitService {
 
     }
 
+    async test() {
+        return await this.unitModel.find();
+    }
+
 
     async getPrintUnits(getPrintUnitsDto: GetPrintUnitsDto) {
 
