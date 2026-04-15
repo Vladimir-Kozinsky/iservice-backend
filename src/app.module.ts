@@ -8,7 +8,7 @@ import { RequestModule } from './request/request.module';
 import { OrderModule } from './order/order.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb+srv://user1:user1@cluster0.lswt8ul.mongodb.net/new-way?retryWrites=true&w=majority'),
+  imports: [MongooseModule.forRoot('mongodb+srv://user1:user1@cluster0.73gv4by.mongodb.net/?appName=Cluster0'),
     AuthModule, UnitModule, ToolModule, RequestModule, OrderModule],
   controllers: [],
   providers: [AppService],
