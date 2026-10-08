@@ -48,36 +48,26 @@ export class OrderService {
     }
 
     async getOrders(getOrdersDto: GetOrdersDto) {
-        if (!getOrdersDto.searchText) {
-            const ordersNumber = await this.orderModel.find().count();
-            if (!ordersNumber) throw new HttpException('Orders not found', HttpStatus.BAD_REQUEST);
-            const numberUnitsToScip = getOrdersDto.page === 1 ? 0 : (getOrdersDto.page - 1) * getOrdersDto.ordersAtPage;
+        const ordersNumber = await this.orderModel.find().count();
+        if (!ordersNumber) throw new HttpException('Orders not found', HttpStatus.BAD_REQUEST);
+        const numberUnitsToScip = getOrdersDto.page === 1 ? 0 : (getOrdersDto.page - 1) * getOrdersDto.ordersAtPage;
 
-            const orders = await this.orderModel
-                .find({ status: getOrdersDto.statusFilter })
-                .skip(numberUnitsToScip)
-                .limit(getOrdersDto.ordersAtPage);
-
-            if (!orders.length) throw new HttpException('Orders not found', HttpStatus.BAD_REQUEST);
-            return {
-                totalPages: Math.ceil(ordersNumber / getOrdersDto.ordersAtPage),
-                currentPage: getOrdersDto.page,
-                orders: orders
-            };
-        }
-
-        const orders = await this.orderModel.find(({
-            status: getOrdersDto.statusFilter,
-            pn: { $regex: getOrdersDto.searchText, $options: 'i' }
-        }));
+        const orders = await this.orderModel
+            .find({ status: getOrdersDto.statusFilter })
+            .skip(numberUnitsToScip)
+            .limit(getOrdersDto.ordersAtPage);
 
         if (!orders.length) throw new HttpException('Orders not found', HttpStatus.BAD_REQUEST);
 
+        const ordersFiltered = await this.orderModel.find({ status: getOrdersDto.statusFilter }).count()
+
         return {
-            totalPages: Math.ceil(+orders.length / getOrdersDto.ordersAtPage),
+            totalPages: Math.ceil(ordersFiltered / getOrdersDto.ordersAtPage),
             currentPage: getOrdersDto.page,
             orders: orders
         };
+
+
     }
 
     async approveOrder(approveOrderDto: ApproveOrderDto) {
@@ -188,6 +178,28 @@ export class OrderService {
             user: updateOrderStatusDto.user
         })
         await order.save();
+
+        //update request status when closed
+        if (updateOrderStatusDto.status === 'closed') {
+            const request = await this.requestModel.findOneAndUpdate(
+                { requestNumber: order.requestNumber },
+                {
+                    status: 'closed',
+                }
+            );
+            if (!request) throw new HttpException('Request is not exists', HttpStatus.BAD_REQUEST);
+
+            await request.statusHistory.push({
+                date: date.toISOString().split('T')[0],
+                status: 'approved',
+                remark: '',
+                user: updateOrderStatusDto.user
+            })
+
+            await request.save();
+
+        }
+
         const updatedOrder = await this.orderModel.findOne({ poNumber: updateOrderStatusDto.poNumber });
         return updatedOrder;
     }

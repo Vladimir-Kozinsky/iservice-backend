@@ -20,35 +20,27 @@ export class RequestService {
     }
 
     async getRequests(getRequestsDto: GetRequestsDto) {
-        if (!getRequestsDto.searchText) {
-            const requestsNumber = await this.requestModel.find().count();
-            if (!requestsNumber) throw new HttpException('Requests not found', HttpStatus.BAD_REQUEST);
-            const numberUnitsToScip = getRequestsDto.page === 1 ? 0 : (getRequestsDto.page - 1) * getRequestsDto.requestsAtPage;
 
-            const requests = await this.requestModel
-                .find({ status: getRequestsDto.statusFilter })
-                .skip(numberUnitsToScip)
-                .limit(getRequestsDto.requestsAtPage);
+        const requestsNumber = await this.requestModel.find().count();
+        if (!requestsNumber) throw new HttpException('Requests not found', HttpStatus.BAD_REQUEST);
+        const numberUnitsToScip = getRequestsDto.page === 1 ? 0 : (getRequestsDto.page - 1) * getRequestsDto.requestsAtPage;
 
-            if (!requests.length) throw new HttpException('Requests not found', HttpStatus.BAD_REQUEST);
-            return {
-                totalPages: Math.ceil(requestsNumber / getRequestsDto.requestsAtPage),
-                currentPage: getRequestsDto.page,
-                requests: requests
-            };
-        }
+        const requests = await this.requestModel
+            .find({ status: getRequestsDto.statusFilter })
+            .skip(numberUnitsToScip)
+            .limit(getRequestsDto.requestsAtPage);
 
-        const requests = await this.requestModel.find(({
-            pn: { $regex: getRequestsDto.searchText, $options: 'i' }
-        }));
+        const requestsFiltered = await this.requestModel.find({ status: getRequestsDto.statusFilter }).count()
+            
 
         if (!requests.length) throw new HttpException('Requests not found', HttpStatus.BAD_REQUEST);
 
         return {
-            totalPages: Math.ceil(+requests.length / getRequestsDto.requestsAtPage),
+            totalPages: Math.ceil(requestsFiltered / getRequestsDto.requestsAtPage),
             currentPage: getRequestsDto.page,
             requests: requests
         };
+
 
     }
 
