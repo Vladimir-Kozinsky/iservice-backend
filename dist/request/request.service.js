@@ -34,6 +34,7 @@ let RequestService = class RequestService {
         const numberUnitsToScip = getRequestsDto.page === 1 ? 0 : (getRequestsDto.page - 1) * getRequestsDto.requestsAtPage;
         const requests = await this.requestModel
             .find({ status: getRequestsDto.statusFilter })
+            .sort({ date: -1, requestNumber: -1 })
             .skip(numberUnitsToScip)
             .limit(getRequestsDto.requestsAtPage);
         const requestsFiltered = await this.requestModel.find({ status: getRequestsDto.statusFilter }).count();

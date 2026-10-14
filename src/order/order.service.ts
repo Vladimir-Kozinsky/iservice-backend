@@ -54,6 +54,7 @@ export class OrderService {
 
         const orders = await this.orderModel
             .find({ status: getOrdersDto.statusFilter })
+            .sort({ poDate: -1})
             .skip(numberUnitsToScip)
             .limit(getOrdersDto.ordersAtPage);
 

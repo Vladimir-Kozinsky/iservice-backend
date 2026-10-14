@@ -52,6 +52,7 @@ let OrderService = class OrderService {
         const numberUnitsToScip = getOrdersDto.page === 1 ? 0 : (getOrdersDto.page - 1) * getOrdersDto.ordersAtPage;
         const orders = await this.orderModel
             .find({ status: getOrdersDto.statusFilter })
+            .sort({ poDate: -1 })
             .skip(numberUnitsToScip)
             .limit(getOrdersDto.ordersAtPage);
         if (!orders.length)

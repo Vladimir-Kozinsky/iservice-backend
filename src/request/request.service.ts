@@ -27,11 +27,12 @@ export class RequestService {
 
         const requests = await this.requestModel
             .find({ status: getRequestsDto.statusFilter })
+            .sort({ date: -1, requestNumber: -1 })
             .skip(numberUnitsToScip)
             .limit(getRequestsDto.requestsAtPage);
 
         const requestsFiltered = await this.requestModel.find({ status: getRequestsDto.statusFilter }).count()
-            
+
 
         if (!requests.length) throw new HttpException('Requests not found', HttpStatus.BAD_REQUEST);
 
