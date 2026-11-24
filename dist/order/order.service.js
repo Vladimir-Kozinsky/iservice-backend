@@ -162,6 +162,14 @@ let OrderService = class OrderService {
         const updatedOrder = await this.orderModel.findOne({ poNumber: updateOrderStatusDto.poNumber });
         return updatedOrder;
     }
+    async getPrintOrders(getPrintOrdersDto) {
+        const orders = await this.orderModel.find(({
+            status: getPrintOrdersDto.statusFilter,
+        })).sort({ requestNumber: 1 });
+        if (!orders.length)
+            throw new common_1.HttpException('Orders not found', common_1.HttpStatus.BAD_REQUEST);
+        return orders;
+    }
 };
 OrderService = __decorate([
     (0, common_1.Injectable)(),

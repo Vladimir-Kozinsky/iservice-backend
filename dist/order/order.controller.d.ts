@@ -31,6 +31,7 @@ import { ApproveOrderDto } from 'src/dto/order/approve-order.dto';
 import { AcceptOrderDto } from 'src/dto/order/accept-order.dto';
 import { updateOrderStatusDto } from 'src/dto/order/update-status.dto';
 import { CancelOrderDto } from 'src/dto/order/cancel-order.dto';
+import { GetPrintOrdersDto } from 'src/dto/order/print-orderss.dto';
 export declare class OrderController {
     private readonly orderService;
     constructor(orderService: OrderService);
@@ -56,4 +57,7 @@ export declare class OrderController {
     updateOrderStatus(updateOrderStatusDto: updateOrderStatusDto): Promise<import("mongoose").Document<unknown, {}, Order> & Omit<Order & Required<{
         _id: import("mongoose").Types.ObjectId;
     }>, never>>;
+    print(getPrintOrdersDto: GetPrintOrdersDto): Promise<(import("mongoose").Document<unknown, {}, Order> & Omit<Order & Required<{
+        _id: import("mongoose").Types.ObjectId;
+    }>, never>)[]>;
 }

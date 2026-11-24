@@ -8,6 +8,7 @@ import { ApproveOrderDto } from 'src/dto/order/approve-order.dto';
 import { AcceptOrderDto } from 'src/dto/order/accept-order.dto';
 import { updateOrderStatusDto } from 'src/dto/order/update-status.dto';
 import { CancelOrderDto } from 'src/dto/order/cancel-order.dto';
+import { GetPrintOrdersDto } from 'src/dto/order/print-orderss.dto';
 
 @ApiTags('Order')
 @Controller('order')
@@ -59,5 +60,14 @@ export class OrderController {
     @HttpCode(201)
     async updateOrderStatus(@Body() updateOrderStatusDto: updateOrderStatusDto) {
         return await this.orderService.updateOrderStatus(updateOrderStatusDto);
+    }
+
+
+    @ApiOperation({ summary: 'Get print orders' })
+    @ApiResponse({ status: 201, type: Order })
+    @Post('/print')
+    @HttpCode(201)
+    async print(@Body() getPrintOrdersDto: GetPrintOrdersDto) {
+        return await this.orderService.getPrintOrders(getPrintOrdersDto);
     }
 }

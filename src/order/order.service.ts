@@ -6,6 +6,7 @@ import { ApproveOrderDto } from 'src/dto/order/approve-order.dto';
 import { CancelOrderDto } from 'src/dto/order/cancel-order.dto';
 import { CreateOrderDto } from 'src/dto/order/create-order.dto';
 import { GetOrdersDto } from 'src/dto/order/get-orders.dto';
+import { GetPrintOrdersDto } from 'src/dto/order/print-orderss.dto';
 import { updateOrderStatusDto } from 'src/dto/order/update-status.dto';
 import { Order } from 'src/schemas/order.schema';
 import { Request } from 'src/schemas/request.schema';
@@ -54,7 +55,7 @@ export class OrderService {
 
         const orders = await this.orderModel
             .find({ status: getOrdersDto.statusFilter })
-            .sort({ poDate: -1})
+            .sort({ poDate: -1 })
             .skip(numberUnitsToScip)
             .limit(getOrdersDto.ordersAtPage);
 
@@ -203,6 +204,22 @@ export class OrderService {
 
         const updatedOrder = await this.orderModel.findOne({ poNumber: updateOrderStatusDto.poNumber });
         return updatedOrder;
+    }
+
+
+
+    async getPrintOrders(getPrintOrdersDto: GetPrintOrdersDto) {
+
+        const orders = await this.orderModel.find(({
+            status: getPrintOrdersDto.statusFilter,
+        })
+        ).sort({ requestNumber: 1  });
+
+
+
+        if (!orders.length) throw new HttpException('Orders not found', HttpStatus.BAD_REQUEST);
+
+        return orders;
     }
 
 }

@@ -23,6 +23,7 @@ const approve_order_dto_1 = require("../dto/order/approve-order.dto");
 const accept_order_dto_1 = require("../dto/order/accept-order.dto");
 const update_status_dto_1 = require("../dto/order/update-status.dto");
 const cancel_order_dto_1 = require("../dto/order/cancel-order.dto");
+const print_orderss_dto_1 = require("../dto/order/print-orderss.dto");
 let OrderController = class OrderController {
     constructor(orderService) {
         this.orderService = orderService;
@@ -44,6 +45,9 @@ let OrderController = class OrderController {
     }
     async updateOrderStatus(updateOrderStatusDto) {
         return await this.orderService.updateOrderStatus(updateOrderStatusDto);
+    }
+    async print(getPrintOrdersDto) {
+        return await this.orderService.getPrintOrders(getPrintOrdersDto);
     }
 };
 __decorate([
@@ -106,6 +110,16 @@ __decorate([
     __metadata("design:paramtypes", [update_status_dto_1.updateOrderStatusDto]),
     __metadata("design:returntype", Promise)
 ], OrderController.prototype, "updateOrderStatus", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Get print orders' }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: order_schema_1.Order }),
+    (0, common_1.Post)('/print'),
+    (0, common_1.HttpCode)(201),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [print_orderss_dto_1.GetPrintOrdersDto]),
+    __metadata("design:returntype", Promise)
+], OrderController.prototype, "print", null);
 OrderController = __decorate([
     (0, swagger_1.ApiTags)('Order'),
     (0, common_1.Controller)('order'),
